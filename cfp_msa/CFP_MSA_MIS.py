@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from .constants import HW_TYPE, HW_SIG_PINS
 from ._utils import check_range
 from ._types import RegisterValue, RegisterSequence
-from collections import Iterable
+from collections.abc import Iterable
 import re
 import time
 import math
@@ -11,7 +11,7 @@ class CfpMsaMis(ABC):
     def __init__(self, hw_type):
         """
         :Params:
-            - **hw_type** - <enum 'HW_TYPE'> CMIS hardware type, OSFP/...
+            - **hw_type** - <enum 'HW_TYPE'> hardware type, CFP2/...
         """
         # information
         self.hw_type = hw_type
