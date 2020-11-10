@@ -3,7 +3,7 @@ class Ddm:
     def __init__(self, trx):
         self.__trx = trx
         self.__keys = (
-            'Module Temp',   # C
+            'Module Temperature',   # C
             'Module Power Supply',   # V
             'Network Lane 0 RX Input Power',   # mW
         )

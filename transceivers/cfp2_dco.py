@@ -5,6 +5,8 @@ from .components._dac import DAC
 from .components._apc import APC
 from .components._ddb import DDB
 from .components._dsp import DSP
+from .components._ddm import Ddm
+from .components._pm import Pm
 import time
 import math
 
@@ -17,6 +19,8 @@ class TRx_CFP2DCO(CfpMsaMis):
         self.__apc = APC(self)
         self.__ddb = DDB(self)
         self.__dsp = DSP(self)
+        self.__ddm = Ddm(self)
+        self.__pm = Pm(self)
 
     def __enter__(self):
         self.connect()
@@ -55,6 +59,14 @@ class TRx_CFP2DCO(CfpMsaMis):
     @property
     def dsp(self):
         return self.__dsp
+
+    @property
+    def ddm(self):
+        return self.__ddm
+
+    @property
+    def pm(self):
+        return self.__pm
 
     def connect(self):
         self.__evb.connect()
@@ -164,9 +176,9 @@ class TRx_CFP2DCO(CfpMsaMis):
         * lane: <int> lane
         * offset: <int> GHz
         """
-        if not -0x8000 <= offset*1000 <= 0x7FFF:
+        if not -5 <= offset <= 5:
             raise ValueError('Fine tune value out of range: {offset}GHz'.format(offset=offset))
-        offset = round(offset)
+        offset = round(offset*1000)
         raw = offset if offset >= 0 else 0x10000+offset
         self[0xB430+lane] = raw
 
@@ -175,9 +187,9 @@ class TRx_CFP2DCO(CfpMsaMis):
         * lane: <int> lane
         * offset: <int> GHz
         """
-        if not -0x8000 <= offset*1000 <= 0x7FFF:
+        if not -5 <= offset <= 5:
             raise ValueError('Fine tune value out of range: {offset}GHz'.format(offset=offset))
-        offset = round(offset)
+        offset = round(offset*1000)
         raw = offset if offset >= 0 else 0x10000+offset
         self[0xB440+lane] = raw
 
