@@ -17,7 +17,7 @@ class Pm:
 
             'FEC Corrected BER',
             'FEC Uncorrectable Codeword',
-            'Lane 0 Average Output Power',
+            'Lane 0 Input Signal Power',
         )
 
     def __getitem__(self, key):
@@ -68,7 +68,7 @@ class Pm:
             return struct.unpack('<f', b_9071 + b_9070)[0]
         if key == 'FEC Uncorrectable Codeword':
             return self.__trx[0xB5C3]*2**16 + self.__trx[0xB5C4]
-        if key == 'Lane 0 Average Output Power':
+        if key == 'Lane 0 Input Signal Power':
             return self.__trx[0xB5CE].to_signed()*0.01
 
-        raise KeyError('Method to get DDM not exist: {key}'.format(key=key))
+        raise KeyError('Method to get PM not exist: {key}'.format(key=key))

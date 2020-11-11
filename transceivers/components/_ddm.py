@@ -4,7 +4,7 @@ class Ddm:
         self.__trx = trx
         self.__keys = (
             'Module Temperature',   # C
-            'Module Power Supply',   # V
+            'Supply Voltage',   # V
             'Network Lane 0 RX Input Power',   # mW
         )
     

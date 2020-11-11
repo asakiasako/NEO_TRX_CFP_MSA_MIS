@@ -3,8 +3,7 @@ import threading
 import re
 import serial
 import time
-
-query_lock = threading.Lock()
+from gevent.lock import BoundedSemaphore
 
 
 class CFP2DcoEVB(object):
@@ -30,6 +29,7 @@ class CFP2DcoEVB(object):
             self._serial.timeout = timeout  # default is 2s
         if port:
             self._serial.port = port
+        self.__lock = BoundedSemaphore()
 
     def __enter__(self):
         return self
@@ -74,8 +74,7 @@ class CFP2DcoEVB(object):
         """
         cmd: <str> cmd in str. no need to add prefix '*' or postfix '\r\n'
         """
-        global query_lock
-        lock = query_lock
+        lock = self.__lock
         lock.acquire()
         try:
             self.__write_cmd_operation(cmd, write_termination)
@@ -89,8 +88,7 @@ class CFP2DcoEVB(object):
         return: <str> reply in str. useless information will not include.
         """
         # acquire lock to ensure correct reply
-        global query_lock
-        lock = query_lock
+        lock = self.__lock
         lock.acquire()
         try:
             self.__write_cmd_operation(cmd, write_termination)
@@ -106,7 +104,7 @@ class CFP2DcoEVB(object):
     @ port.setter
     def port(self, value):
         if self.is_connected:
-            raise PermissionError('Could not change port when transceiver is connected.')
+            raise PermissionError('Could not change port when EVB is connected.')
         self._serial.port = value
 
     @ property

@@ -35,7 +35,7 @@ class CfpMsaMis(ABC):
                 raise IndexError('MDIO register address should between 0x0000 and 0xFFFF.')
             list_data = []
             for _addr in range(start, stop+1):
-                list_data.append(self.read_mdio_register(_addr.to_bytes(2, 'big')))
+                list_data.append(int.from_bytes(self.read_mdio_register(_addr.to_bytes(2, 'big')), 'big'))
             return RegisterSequence(list_data)
         if isinstance(position, str):
             if position in self.hw_pin:
@@ -77,7 +77,6 @@ class CfpMsaMis(ABC):
                 raise IndexError('TWI register address should between 0x00 and 0xFF.')
             if not isinstance(value, int):
                 raise TypeError('value should be int')
-            start_addr_bytes = start.to_bytes(2, 'big')
             data_len = stop - start + 1
             if isinstance(value, int):
                 data_bytes = value.to_bytes(data_len*2, 'big')

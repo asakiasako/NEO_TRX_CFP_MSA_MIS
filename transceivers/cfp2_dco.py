@@ -30,7 +30,7 @@ class TRx_CFP2DCO(CfpMsaMis):
         self.disconnect()
 
     def __repr__(self):
-        return '<{classname} port={port}>'.format(classname=self.__class__.__name__, port=self.__comport)
+        return '<{classname} port={port}>'.format(classname=self.__class__.__name__, port=self.port)
 
     @property
     def port(self):
