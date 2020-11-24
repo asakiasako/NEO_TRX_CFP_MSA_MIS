@@ -15,6 +15,11 @@ class Pm:
             'Lane 0 Minimum Input Power',  # dBm
             'Lane 0 Maximum Input Power',  # dBm
 
+            'Lane 0 Current SNR',
+            'Lane 0 Average SNR',
+            'Lane 0 Minimum SNR',
+            'Lane 0 Maximum SNR',
+
             'FEC Corrected BER',
             'FEC Uncorrectable Codeword',
             'Lane 0 Input Signal Power',
@@ -61,6 +66,15 @@ class Pm:
             return self.__trx[0xB500].to_signed()*0.01
         if key == 'Lane 0 Maximum Input Power':
             return self.__trx[0xB510].to_signed()*0.01
+
+        if key == 'Lane 0 Current SNR':
+            return self.__trx[0xBA00]*0.1
+        if key == 'Lane 0 Average SNR':
+            return self.__trx[0xBA10]*0.1
+        if key == 'Lane 0 Minimum SNR':
+            return self.__trx[0xBA20]*0.1
+        if key == 'Lane 0 Maximum SNR':
+            return self.__trx[0xBA30]*0.1
 
         if key == 'FEC Corrected BER':
             b_9070 = self.__trx[0x9070].to_bytes(2, 'little')
