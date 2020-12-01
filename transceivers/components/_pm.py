@@ -83,6 +83,6 @@ class Pm:
         if key == 'FEC Uncorrectable Codeword':
             return self.__trx[0xB5C3]*2**16 + self.__trx[0xB5C4]
         if key == 'Lane 0 Input Signal Power':
-            return self.__trx[0xB5CE].to_signed()*0.01
+            return self.__trx[0xB5CF].to_signed()*0.01
 
         raise KeyError('Method to get PM not exist: {key}'.format(key=key))

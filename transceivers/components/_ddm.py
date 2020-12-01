@@ -18,9 +18,9 @@ class Ddm:
     def __get_ddm(self, key):
         if key not in self.keys:
             raise KeyError('Invalid key for DDM: {key}'.format(key=key))
-        if key == 'Module Temp':
+        if key == 'Module Temperature':
             return self.__trx[0xB02F].to_signed()/256
-        if key == 'Module Power Supply':
+        if key == 'Supply Voltage':
             return self.__trx[0xB030]*10**(-3)
         if key == 'Network Lane 0 RX Input Power':
             return self.__trx[0xB350]*0.1*10**(-3)
