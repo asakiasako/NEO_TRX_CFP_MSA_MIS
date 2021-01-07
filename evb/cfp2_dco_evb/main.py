@@ -116,12 +116,22 @@ class CFP2DcoEVB(object):
         self._serial.timeout = value
 
     def connect(self):
-        if not self.port:
-            raise ValueError('Port name is not defined.')
-        self._serial.open()
+        lock = self.__lock
+        lock.acquire()
+        try:
+            if not self.port:
+                raise ValueError('Port name is not defined.')
+            self._serial.open()
+        finally:
+            lock.release()
 
     def disconnect(self):
-        self._serial.close() 
+        lock = self.__lock
+        lock.acquire()
+        try:
+            self._serial.close()
+        finally:
+            lock.release()
 
     @ property
     def is_connected(self):

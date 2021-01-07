@@ -132,6 +132,24 @@ class TRx_CFP2DCO(CfpMsaMis):
     def get_sn(self):
         return self[0x8044:0x8053].to_ascii_str().strip()
 
+    def get_fw_version(self):
+        self.ddb.wait_for_idle()
+        self[0x9c00] = 0x0f01
+        self.ddb.wait_for_success()
+        if 6 == self[0x9c01]:
+            if 1 == self[0x9c02]:
+                _a_image = hex((self[0x9c04] << 16) | self[0x9c05])
+            else:
+                _a_image = 'INVALID'
+            if 1 == self[0x9c03]:
+                _b_image = hex((self[0x9c06] << 16) | self[0x9c07])
+            else:
+                _b_image = 'INVALID'
+        else:
+            _a_image = _b_image = 'INVALID'
+        
+        return {'A': _a_image, 'B': _b_image}
+
     def write_password(self, psw=0x01011100):
         '''
         Write password to Password Entry Area.

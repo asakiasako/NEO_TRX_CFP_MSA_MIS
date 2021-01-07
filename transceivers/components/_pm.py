@@ -20,6 +20,21 @@ class Pm:
             'Lane 0 Minimum SNR',
             'Lane 0 Maximum SNR',
 
+            'Lane 0 Current CD',
+            'Lane 0 Average CD',
+            'Lane 0 Minimum CD',
+            'Lane 0 Maximum CD',
+
+            'Lane 0 Current DGD',
+            'Lane 0 Average DGD',
+            'Lane 0 Minimum DGD',
+            'Lane 0 Maximum DGD',
+
+            'Lane 0 Current CFO',  # MHz
+            'Lane 0 Average CFO',
+            'Lane 0 Minimum CFO',
+            'Lane 0 Maximum CFO',
+
             'FEC Corrected BER',
             'FEC Uncorrectable Codeword',
             'Lane 0 Input Signal Power',
@@ -67,6 +82,24 @@ class Pm:
         if key == 'Lane 0 Maximum Input Power':
             return self.__trx[0xB510].to_signed()*0.01
 
+        if key == 'Lane 0 Current CD':
+            return self.__trx[0xB800] * 0xFFFF + self.__trx[0xB810]
+        if key == 'Lane 0 Average CD':
+            return self.__trx[0xB820] * 0xFFFF + self.__trx[0xB830]
+        if key == 'Lane 0 Minimum CD':
+            return self.__trx[0xB840] * 0xFFFF + self.__trx[0xB850]
+        if key == 'Lane 0 Maximum CD':
+            return self.__trx[0xB860] * 0xFFFF + self.__trx[0xB870]
+
+        if key == 'Lane 0 Current DGD':
+            return self.__trx[0xB880]
+        if key == 'Lane 0 Average DGD':
+            return self.__trx[0xB890]
+        if key == 'Lane 0 Minimum DGD':
+            return self.__trx[0xB8A0]
+        if key == 'Lane 0 Maximum DGD':
+            return self.__trx[0xB8B0]
+
         if key == 'Lane 0 Current SNR':
             return self.__trx[0xBA00]*0.1
         if key == 'Lane 0 Average SNR':
@@ -75,6 +108,15 @@ class Pm:
             return self.__trx[0xBA20]*0.1
         if key == 'Lane 0 Maximum SNR':
             return self.__trx[0xBA30]*0.1
+
+        if key == 'Lane 0 Current CFO':
+            return self.__trx[0xB9C0]
+        if key == 'Lane 0 Average CFO':
+            return self.__trx[0xB9D0]
+        if key == 'Lane 0 Minimum CFO':
+            return self.__trx[0xB9E0]
+        if key == 'Lane 0 Maximum CFO':
+            return self.__trx[0xB9F0]
 
         if key == 'FEC Corrected BER':
             b_9070 = self.__trx[0x9070].to_bytes(2, 'little')

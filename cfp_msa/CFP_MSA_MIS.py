@@ -89,7 +89,7 @@ class CfpMsaMis(ABC):
             if len(data_bytes) != data_len*2:
                 raise ValueError('Length of slice and data do not match.')
             for _idx, _addr in enumerate(range(start, stop+1)):
-                i_data = data_bytes[2*_idx, 2*_idx+2]
+                i_data = data_bytes[2*_idx: 2*_idx+2]
                 self.write_mdio_register(_addr.to_bytes(2, 'big'), i_data)
         else:
             raise TypeError('indices should be int or str or slice')
