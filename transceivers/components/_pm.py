@@ -30,6 +30,16 @@ class Pm:
             'Lane 0 Minimum DGD',
             'Lane 0 Maximum DGD',
 
+            'Lane 0 Current PDL',
+            'Lane 0 Average PDL',
+            'Lane 0 Minimum PDL',
+            'Lane 0 Maximum PDL',
+
+            'Lane 0 Current Q',
+            'Lane 0 Average Q',
+            'Lane 0 Minimum Q',
+            'Lane 0 Maximum Q',
+
             'Lane 0 Current CFO',  # MHz
             'Lane 0 Average CFO',
             'Lane 0 Minimum CFO',
@@ -83,13 +93,17 @@ class Pm:
             return self.__trx[0xB510].to_signed()*0.01
 
         if key == 'Lane 0 Current CD':
-            return self.__trx[0xB800] * 0xFFFF + self.__trx[0xB810]
+            raw = self.__trx[0xB800] * 0x10000 + self.__trx[0xB810]
+            return raw if raw < 0x80000000 else (raw - 0x100000000)
         if key == 'Lane 0 Average CD':
-            return self.__trx[0xB820] * 0xFFFF + self.__trx[0xB830]
+            raw = self.__trx[0xB820] * 0x10000 + self.__trx[0xB830]
+            return raw if raw < 0x80000000 else (raw - 0x100000000)
         if key == 'Lane 0 Minimum CD':
-            return self.__trx[0xB840] * 0xFFFF + self.__trx[0xB850]
+            raw = self.__trx[0xB840] * 0x10000 + self.__trx[0xB850]
+            return raw if raw < 0x80000000 else (raw - 0x100000000)
         if key == 'Lane 0 Maximum CD':
-            return self.__trx[0xB860] * 0xFFFF + self.__trx[0xB870]
+            raw = self.__trx[0xB860] * 0x10000 + self.__trx[0xB870]
+            return raw if raw < 0x80000000 else (raw - 0x100000000)
 
         if key == 'Lane 0 Current DGD':
             return self.__trx[0xB880]
@@ -108,6 +122,24 @@ class Pm:
             return self.__trx[0xBA20]*0.1
         if key == 'Lane 0 Maximum SNR':
             return self.__trx[0xBA30]*0.1
+
+        if key == 'Lane 0 Current PDL':
+            return self.__trx[0xB940]*0.1
+        if key == 'Lane 0 Average PDL':
+            return self.__trx[0xB950]*0.1
+        if key == 'Lane 0 Minimum PDL':
+            return self.__trx[0xB960]*0.1
+        if key == 'Lane 0 Maximum PDL':
+            return self.__trx[0xB970]*0.1
+
+        if key == 'Lane 0 Current Q':
+            return self.__trx[0xB980]*0.1
+        if key == 'Lane 0 Average Q':
+            return self.__trx[0xB990]*0.1
+        if key == 'Lane 0 Minimum Q':
+            return self.__trx[0xB9A0]*0.1
+        if key == 'Lane 0 Maximum Q':
+            return self.__trx[0xB9B0]*0.1
 
         if key == 'Lane 0 Current CFO':
             return self.__trx[0xB9C0]
