@@ -73,7 +73,7 @@ class Pm:
 
     def __get_pm(self, key):
         if key not in self.keys:
-            raise KeyError('Invalid key for DDM: {key}'.format(key=key))
+            raise KeyError('Invalid key for Performance Monitor: {key}'.format(key=key))
         if key == 'Lane 0 Current Output Power':
             return self.__trx[0xB4A0].to_signed()*0.01
         if key == 'Lane 0 Average Output Power':
@@ -142,13 +142,13 @@ class Pm:
             return self.__trx[0xB9B0]*0.1
 
         if key == 'Lane 0 Current CFO':
-            return self.__trx[0xB9C0]
+            return self.__trx[0xB9C0].to_signed()
         if key == 'Lane 0 Average CFO':
-            return self.__trx[0xB9D0]
+            return self.__trx[0xB9D0].to_signed()
         if key == 'Lane 0 Minimum CFO':
-            return self.__trx[0xB9E0]
+            return self.__trx[0xB9E0].to_signed()
         if key == 'Lane 0 Maximum CFO':
-            return self.__trx[0xB9F0]
+            return self.__trx[0xB9F0].to_signed()
 
         if key == 'FEC Corrected BER':
             b_9070 = self.__trx[0x9070].to_bytes(2, 'little')
