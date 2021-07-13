@@ -3,7 +3,7 @@ import threading
 import re
 import serial
 import time
-from gevent.lock import BoundedSemaphore
+from threading import Lock
 
 
 class CFP2DcoEVB(object):
@@ -29,7 +29,7 @@ class CFP2DcoEVB(object):
             self._serial.timeout = timeout  # default is 2s
         if port:
             self._serial.port = port
-        self.__lock = BoundedSemaphore()
+        self.__lock = Lock()
 
     def __enter__(self):
         return self
