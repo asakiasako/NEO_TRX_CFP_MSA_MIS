@@ -1,14 +1,14 @@
 from ..evb import CFP2DcoEVB
 from ..cfp_msa import CfpMsaMis, HW_TYPE
-from .components._adc import ADC
-from .components._dac import DAC
-from .components._apc import APC
+from .components._adc_acfp2 import ADC
+from .components._dac_acfp2 import DAC
+from .components._apc_acfp2 import APC
 from .components._ddb import DDB
 from .components._dsp import DSP
 from .components._ddm import Ddm
-from .components._pm import Pm
+from .components._pm_acfp import Pm
 
-class TRx_CFP2DCO(CfpMsaMis):
+class TRx_ACFP2DCO(CfpMsaMis):
     def __init__(self, comport=None, hw_type=HW_TYPE.CFP2):
         CfpMsaMis.__init__(self, hw_type)
         self.__evb = CFP2DcoEVB(port=comport)

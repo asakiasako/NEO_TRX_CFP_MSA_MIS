@@ -22,6 +22,8 @@ class Ddm:
             return self.__trx[0xB02F].to_signed()/256
         if key == 'Supply Voltage':
             return self.__trx[0xB030]*10**(-3)
+        if key == 'Network Lane 0 TX Laser Temp':
+            return self.__trx[0xB340].to_signed()/256
         if key == 'Network Lane 0 RX Input Power':
             return self.__trx[0xB350]*0.1*10**(-3)
         
