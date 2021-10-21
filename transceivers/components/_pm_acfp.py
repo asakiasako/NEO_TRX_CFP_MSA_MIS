@@ -149,10 +149,9 @@ class Pm:
             return self.__trx[0xB9E0].to_signed()
         if key == 'Lane 0 Maximum CFO':
             return self.__trx[0xB9F0].to_signed()
-
         if key == 'FEC Corrected BER':
-            msb = self.__trx[0x9070].to_bytes(2, 'big')
-            lsb = self.__trx[0x9071].to_bytes(2, 'big')
+            msb = self.__trx[0x9050].to_bytes(2, 'big')
+            lsb = self.__trx[0x9051].to_bytes(2, 'big')
             return struct.unpack('>f', msb+lsb)[0]
         if key == 'FEC Uncorrectable Codeword':
             return self.__trx[0x9052:0x9055].to_unsigned()

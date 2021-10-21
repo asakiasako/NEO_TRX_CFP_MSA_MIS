@@ -91,6 +91,12 @@ class RegisterSequence(Sequence):
     def __len__(self):
         return len(self.__data)
 
+    def to_bytes(self):
+        b = bytearray()
+        for i in self:
+            b.extend(i.to_bytes(2, 'big'))
+        return bytes(b)
+
     def to_unsigned(self):
         return int.from_bytes(self.to_bytes(), 'big')
 
