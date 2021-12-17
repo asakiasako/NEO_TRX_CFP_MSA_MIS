@@ -11,7 +11,7 @@ class APC:
         self.__dut = dut
 
     def enable(self, en=True):
-        self.__dut[0xD802][0] = int(en)
+        self.__dut[0xD802][1:0] = 0b11 if en else 0
 
     def disable(self):
         return self.enable(en=False)
