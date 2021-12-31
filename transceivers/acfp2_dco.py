@@ -13,7 +13,7 @@ class TRx_ACFP2DCO(CfpMsaMis):
         CfpMsaMis.__init__(self, hw_type)
         self.__evb = CFP2DcoEVB(port=comport)
         self.__adc = ADC(self)
-        self.__adc = DAC(self)
+        self.__dac = DAC(self)
         self.__apc = APC(self)
         self.__ddb = DDB(self)
         self.__dsp = DSP(self)
@@ -44,7 +44,7 @@ class TRx_ACFP2DCO(CfpMsaMis):
 
     @property
     def dac(self):
-        return self.__adc
+        return self.__dac
 
     @property
     def apc(self):
