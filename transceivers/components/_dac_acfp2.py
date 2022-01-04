@@ -28,6 +28,7 @@ DAC_KEYS = (
     "PH_YQ_AC_DAC",
     "PH_XP_AC_DAC",
     "PH_YP_AC_DAC",
+    "SOA_PW_DAC",
 
     "PH_XI_DAC",
     "PH_XQ_DAC",
